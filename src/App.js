@@ -1,11 +1,12 @@
 import './App.css';
 import PokemonCard from './components/PokemonCard';
+import Home from './view/Home';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <PokemonCard name="charmander" />
+        <Home/>
       </header>
     </div>
   );
