@@ -47,7 +47,6 @@ function Home() {
       <div className="input-button-container">
         <input
           type="text"
-          style={{marginTop: '20px'}}
           value={pokemomName}
           onChange={(e) => setPokemonName(e.target.value)}
         />
