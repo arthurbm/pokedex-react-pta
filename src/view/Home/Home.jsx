@@ -16,29 +16,22 @@ function Home() {
   const [abilities, setAbilities] = useState();
 
   const getPokemon = async () => {
-    let typesLocal, abilitiesLocal;
+    let typesLocal = [];
+    let abilitiesLocal = [];
     const res = await api.get(`pokemon/${pokemonName.toLowerCase()}`);
     console.log(res.data);
 
-    setPokemonNameRequest(pokemonName);
+    setPokemonNameRequest(res.data.name);
 
     setPhoto(res.data.sprites.front_default);
 
     res.data.types.forEach((typeIndex, count) => {
-      if (count === 0) {
-        typesLocal = [typeIndex.type.name];
-      } else {
-        typesLocal = [...typeIndex, typeIndex.type.name];
-      }
+      typesLocal = [...typesLocal, typeIndex.type.name];
     });
     setTypes(typesLocal);
 
     res.data.abilities.forEach((abilityIndex, count) => {
-      if (count === 0) {
-        abilitiesLocal = [abilityIndex.ability.name];
-      } else {
-        abilitiesLocal = [...abilitiesLocal, abilityIndex.ability.name];
-      }
+      abilitiesLocal = [...abilitiesLocal, abilityIndex.ability.name];
     });
 
     setAbilities(abilitiesLocal);
