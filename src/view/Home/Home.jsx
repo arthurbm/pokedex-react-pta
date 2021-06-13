@@ -7,17 +7,20 @@ import PokemonCard from '../../components/PokemonCard';
 import './styles.css';
 
 function Home() {
-  const [pokemomName, setPokemonName] = useState('');
+  const [pokemonName, setPokemonName] = useState('');
   const [makeRequest, setMakeRequest] = useState(false);
 
+  const [pokemonNameRequest, setPokemonNameRequest] = useState();
   const [photo, setPhoto] = useState();
   const [types, setTypes] = useState();
   const [abilities, setAbilities] = useState();
 
   const getPokemon = async () => {
     let typesLocal, abilitiesLocal;
-    const res = await api.get(`pokemon/${pokemomName.toLowerCase()}`);
+    const res = await api.get(`pokemon/${pokemonName.toLowerCase()}`);
     console.log(res.data);
+
+    setPokemonNameRequest(pokemonName);
 
     setPhoto(res.data.sprites.front_default);
 
@@ -47,14 +50,14 @@ function Home() {
       <div className="input-button-container">
         <input
           type="text"
-          value={pokemomName}
+          value={pokemonName}
           onChange={(e) => setPokemonName(e.target.value)}
         />
         <button onClick={() => {setMakeRequest(true); getPokemon()}} >ENTER</button>
       </div>
 
       {makeRequest && (
-        <PokemonCard name={pokemomName} photo={photo} abilities={abilities} types={types} />
+        <PokemonCard name={pokemonNameRequest} photo={photo} abilities={abilities} types={types} />
       )}
     </>
   );
