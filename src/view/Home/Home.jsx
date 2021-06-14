@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import api from '../../services/api';
 
 import logoPokedex from '../../assets/pokedex-logo.png'
@@ -15,6 +15,8 @@ function Home() {
   const [photoBack, setPhotoBack] = useState();
   const [types, setTypes] = useState();
   const [abilities, setAbilities] = useState();
+
+  const inputRef = useRef();
 
   const getPokemon = async () => {
     let typesLocal = [];
@@ -40,12 +42,18 @@ function Home() {
     setAbilities(abilitiesLocal);
   }
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <>
       <img src={logoPokedex} alt=""/>
       <div className="input-button-container">
         <input
           type="text"
+          placeholder="Escreva o nome do Pokemon"
+          ref={inputRef}
           value={pokemonName}
           onChange={(e) => setPokemonName(e.target.value)}
         />

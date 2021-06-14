@@ -6,16 +6,27 @@ function PokemonCard({ name, photo, types, abilities, photoBack }) {
   return (
     <>
       <div className="box-pokemon">
-        <p>Nome: {name}</p>
-        <img src={photoBack} alt="pokemon_photo" />
-        <img src={photo} alt="pokemon_photo" />
-        <p>Type: {types}</p>
-        <p>Abilities</p>
-        {abilities?.map((ability) => {
-          return (
-            <p className="ability-item" >{ability}</p>
-          )
-        })}
+        <h2>{name}</h2>
+        <img src={photoBack} alt="pokemon_photo" width="150px" />
+        <img src={photo} alt="pokemon_photo" width="150px" />
+        <div className="proprieties" >
+          <div>
+            <p>Types</p>
+            {types?.map((type) => {
+              return (
+                <p className="propriety-item">{type}</p>
+              );
+            })}
+          </div>
+          <div>
+            <p>Abilities</p>
+            {abilities?.map((ability) => {
+              return (
+                <p className="propriety-item" >{ability}</p>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </>
   );
