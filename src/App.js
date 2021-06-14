@@ -1,5 +1,4 @@
 import './App.css';
-import PokemonCard from './components/PokemonCard';
 import Home from './view/Home';
 
 function App() {

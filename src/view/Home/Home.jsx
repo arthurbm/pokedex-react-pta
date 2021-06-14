@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import api from '../../services/api';
 
 import logoPokedex from '../../assets/pokedex-logo.png'
@@ -12,6 +12,7 @@ function Home() {
 
   const [pokemonNameRequest, setPokemonNameRequest] = useState();
   const [photo, setPhoto] = useState();
+  const [photoBack, setPhotoBack] = useState();
   const [types, setTypes] = useState();
   const [abilities, setAbilities] = useState();
 
@@ -24,6 +25,8 @@ function Home() {
     setPokemonNameRequest(res.data.name);
 
     setPhoto(res.data.sprites.front_default);
+
+    setPhotoBack(res.data.sprites.back_default);
 
     res.data.types.forEach((typeIndex, count) => {
       typesLocal = [...typesLocal, typeIndex.type.name];
@@ -50,7 +53,7 @@ function Home() {
       </div>
 
       {makeRequest && (
-        <PokemonCard name={pokemonNameRequest} photo={photo} abilities={abilities} types={types} />
+        <PokemonCard name={pokemonNameRequest} photo={photo} abilities={abilities} types={types} photoBack={photoBack} />
       )}
     </>
   );
