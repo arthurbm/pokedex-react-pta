@@ -4,5 +4,4 @@ Pokedex autoral usando a Poke API (https://pokeapi.co/) feita para fins didátic
 
 Para utilizar, entre no link da descrição do projeto, digite o nome de qualquer pokemon e clique no botão "Enter".
 
-Exemplo:
 ![assets/pokedexpikachu.png](assets/pokedexpikachu.png)
