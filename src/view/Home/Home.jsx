@@ -18,28 +18,32 @@ function Home() {
 
   const inputRef = useRef();
 
-  const getPokemon = async () => {
-    let typesLocal = [];
-    let abilitiesLocal = [];
-    const res = await api.get(`pokemon/${pokemonName.toLowerCase()}`);
-    console.log(res.data);
+  async function getPokemon() {
+    try {
+      const response = await api.get(`pokemon/${pokemonName.toLowerCase()}`);
+      console.log(response.data);
 
-    setPokemonNameRequest(res.data.name);
+      const { name, sprites, types, abilities } = response.data;
+      const { front_default, back_default } = sprites;
 
-    setPhoto(res.data.sprites.front_default);
+      setPokemonNameRequest(name);
+      setPhoto(front_default);
+      setPhotoBack(back_default);
+      setTypes(types.map(typeObj => typeObj.type.name));
+      setAbilities(abilities.map(abilityObj => abilityObj.ability.name));
 
-    setPhotoBack(res.data.sprites.back_default);
+      setMakeRequest(true);
 
-    res.data.types.forEach((typeIndex, count) => {
-      typesLocal = [...typesLocal, typeIndex.type.name];
-    });
-    setTypes(typesLocal);
+    } catch(err) {
+      console.log(err)
+      alert('Pokemon not found');
+    }
+  }
 
-    res.data.abilities.forEach((abilityIndex, count) => {
-      abilitiesLocal = [...abilitiesLocal, abilityIndex.ability.name];
-    });
-
-    setAbilities(abilitiesLocal);
+  function handleSubmit(event) {
+    event.preventDefault();
+    getPokemon();
+    inputRef.current.focus();
   }
 
   useEffect(() => {
@@ -48,8 +52,8 @@ function Home() {
 
   return (
     <>
-      <img src={logoPokedex} alt=""/>
-      <div className="input-button-container">
+      <img src={logoPokedex} alt="logo_pokedex"/>
+      <form onSubmit={handleSubmit} className="input-button-container">
         <input
           type="text"
           placeholder="Escreva o nome do Pokemon"
@@ -57,8 +61,8 @@ function Home() {
           value={pokemonName}
           onChange={(e) => setPokemonName(e.target.value)}
         />
-        <button onClick={() => {setMakeRequest(true); getPokemon()}} >ENTER</button>
-      </div>
+        <button type='submit'>ENTER</button>
+      </form>
 
       {makeRequest && (
         <PokemonCard name={pokemonNameRequest} photo={photo} abilities={abilities} types={types} photoBack={photoBack} />
